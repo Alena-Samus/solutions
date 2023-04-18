@@ -1,59 +1,34 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-string s = "DCXXI";
-string currentTwoCharacters = string.Empty;
-int result = 0;
-int i = -1;
-s = s.ToUpper();
+string[] strs = { "reflower", "flow", "flight" };
+string result = "";
+string currentChars = string.Empty;
+int i = 1;
+string[] newStrs = strs.OrderBy(x => x.Length).ToArray();
 
 
-Dictionary<String, int> numbers = new Dictionary<String, int>()
+foreach(char c in newStrs[0])
 {
-    {"I",1},
-    {"V",5},
-    {"X",10},
-    {"L",50},
-    {"C",100},
-    {"D",500},
-    {"M",1000},
-    {"IV",4},
-    {"IX",9},
-    {"XL",40},
-    {"XC",90},
-    {"CD",400},
-    {"CM",900}
-};
+    currentChars += c;
 
-
-    do
-    {
-        i++;
-        if (i == s.Length - 1)
-    {
-        result += numbers.TryGetValue(s[i].ToString(), out result) ? result : 0;
+    bool t = strs.All(s => s.StartsWith(currentChars));
+    if (t) 
+    { 
+        result = currentChars; 
     }
-        else if (i < s.Length - 1)
-        {
-            currentTwoCharacters = s[i].ToString() + s[i + 1].ToString();
+    else 
+    { 
 
-            if (numbers.ContainsKey(currentTwoCharacters))
-            {
-                result += numbers.TryGetValue(currentTwoCharacters, out result) ? result : 0;
-            i++;
-            continue;
+            break;
 
-            }
-            else
-            {
-                result += numbers.TryGetValue(s[i].ToString(), out result) ? result : 0;
-            }
-        }
+    }
+ 
+
 }
-    while (i < s.Length);
 
 
 
-Console.Write(result);
+Console.WriteLine (result);
 
 
 
