@@ -1,34 +1,74 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-string[] strs = { "reflower", "flow", "flight" };
-string result = "";
-string currentChars = string.Empty;
-int i = 1;
-string[] newStrs = strs.OrderBy(x => x.Length).ToArray();
+using System.Collections;
 
+string s = "()[{{]";
 
-foreach(char c in newStrs[0])
+char[] chars = s.ToCharArray();
+bool answer = false;
+Stack<char> stack = new Stack<char>();
+Stack<char> stackOne = new Stack<char>();
+
+foreach (char c in chars)
 {
-    currentChars += c;
-
-    bool t = strs.All(s => s.StartsWith(currentChars));
-    if (t) 
-    { 
-        result = currentChars; 
-    }
-    else 
-    { 
-
+    switch (c)
+    {
+        case '(':
+            stack.Push(c);
             break;
-
+        case '[':
+            stack.Push(c);
+            break;
+        case '{':
+            stack.Push(c);
+            break;
+        case '}':
+            if (stack.Count > 0 && stack.Peek() == '{')
+            {
+                stack.Pop();
+            }
+            else
+            {
+                stackOne.Push(c);
+            }
+            break;
+        case ']':
+            if (stack.Count > 0 && stack.Peek() == '[')
+            {
+                stack.Pop();
+            }
+            else
+            {
+                stackOne.Push(c);
+            }
+            break;
+        case ')':
+            if (stack.Count > 0 && stack.Peek() == '(')
+            {
+                stack.Pop();
+            }
+            else
+            {
+                stackOne.Push(c);
+            }
+            break;
     }
- 
-
 }
 
 
 
-Console.WriteLine (result);
+    
+
+
+
+if (stack.Count == 0 && stackOne.Count == 0)
+{
+    answer = true;
+}
+
+
+
+Console.WriteLine (answer);
 
 
 
